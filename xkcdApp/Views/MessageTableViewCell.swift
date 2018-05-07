@@ -11,4 +11,24 @@ import UIKit
 class MessageTableViewCell: UITableViewCell {
 
     @IBOutlet weak var messageText: UILabel!
+
+    var item: Message? {
+        didSet {
+            if item == nil {
+                messageText.text = ""
+            } else {
+                messageText.text = item?.text
+            }
+        }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+       // iconView.layer.cornerRadius = 4
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.item = nil
+    }
 }

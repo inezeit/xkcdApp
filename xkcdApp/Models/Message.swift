@@ -9,7 +9,7 @@
 import Foundation
 
 struct Message {
-    var id: Double
+    var id: Int
     var author: String
     var text : String
 }

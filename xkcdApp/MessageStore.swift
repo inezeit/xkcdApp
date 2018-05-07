@@ -9,7 +9,13 @@
 import Foundation
 
 class MessageStore {
-    var messages: [Message] = [Message(id: 1, author: "inezzaa", text: "asdsdsadasdsa")]
+    
+    static let sharedInstance: MessageStore = {
+        let instance = MessageStore()
+        return instance
+    }()
+    
+    var messages: [Message] = []
     
     func add(message: Message) {
         messages.append(message)

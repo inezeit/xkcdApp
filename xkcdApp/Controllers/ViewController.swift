@@ -12,19 +12,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
-    var store = MessageStore()
+    var store = MessageStore.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        
+        ApiController.sharedInstance.downloadAndSetItems(pageNumber: 1, viewController: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.tableView.reloadData()
     }
-    
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -38,28 +39,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             fatalError()
         }
         let item = store.messages[indexPath.row]
-        cell.messageText.text = item.text
-        //cell.messageText.textColor = item.isDone ? .darkGray : .lightGray
+        cell.item = item
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return store.messages.count
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-       // if let taskViewController = segue.destination as? ViewController {
-       //     ViewController.store = store
-       // }
-       // if let detailsViewController = segue.destination as? TaskDetailsViewController {
-       //     guard let indexPath = tableView.indexPath(for: sender as! TaskTableViewCell) else {
-       //         fatalError()
-       //     }
-       //     detailsViewController.store = store
-       //     detailsViewController.task = store.tasks[indexPath.row]
-       // }
-        
     }
 }
 
