@@ -27,6 +27,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.tableView.reloadData()
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            let messageText = store.messages[indexPath.item].text
+            let size = CGSize(width: 250, height: 1000)
+            let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+            let estimatedFrame = NSString(string: messageText).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 18)], context: nil)
+            
+            return estimatedFrame.height + 30
+    }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             store.remove(message: store.messages[indexPath.row])
@@ -34,12 +43,34 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    var previousAuthor : String?
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MessageTableViewCell.self)) as? MessageTableViewCell else {
             fatalError()
         }
         let item = store.messages[indexPath.row]
         cell.item = item
+        
+        let messageText = store.messages[indexPath.item].text
+        let size = CGSize(width: 250, height: 1000)
+        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        let estimatedFrame = NSString(string: messageText).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 18)], context: nil)
+        
+        let screenSize = UIScreen.main.bounds
+        let screenWidth = screenSize.width
+        var startPosition : CGFloat = 0.0
+        
+        if(cell.item?.author == "text"){
+            startPosition = screenWidth/2 - estimatedFrame.width/2
+        }else if(previousAuthor != nil && cell.item?.author != previousAuthor){
+            startPosition = screenWidth - estimatedFrame.width - 20
+        }
+        
+        previousAuthor = cell.item?.author
+        
+        cell.bubble.frame = CGRect(x: startPosition + 5, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
+        cell.messageText.frame = CGRect(x: startPosition, y: 0, width: estimatedFrame.width + 16 + 8, height: estimatedFrame.height + 20)
         return cell
     }
     

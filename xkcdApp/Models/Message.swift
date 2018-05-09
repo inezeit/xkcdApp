@@ -8,8 +8,13 @@
 
 import Foundation
 
+enum Position {
+    case left, right ,middle
+}
+
 struct Message {
     var id: Int
     var author: String
     var text : String
+    var position : Position
 }

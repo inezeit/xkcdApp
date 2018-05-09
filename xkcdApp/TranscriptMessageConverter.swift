@@ -19,18 +19,19 @@ class TranscriptMessageConverter {
             
             var author = ""
             var text = ""
+            var position = Position.left
             
             if(line.starts(with: "[") || line.starts(with: "<")){
                 author = "text"
                 text = line
+                position = .middle
             }else{
                 var lineSeaprated = line.components(separatedBy: ":")
-                print(lineSeaprated)
                 author = lineSeaprated[0]
                 text = lineSeaprated[1]
             }
             
-            let message = Message(id: index, author: author, text: text)
+            let message = Message(id: index, author: author, text: text, position: position)
             print(index)
             messages.append(message)
         }

@@ -10,25 +10,30 @@ import UIKit
 
 class MessageTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var messageText: UILabel!
-
+    @IBOutlet weak var messageText: UITextView!
+    @IBOutlet weak var bubble: UIView!
+    
     var item: Message? {
         didSet {
             if item == nil {
                 messageText.text = ""
             } else {
                 messageText.text = item?.text
+                setBubble(position: 1)
             }
         }
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-       // iconView.layer.cornerRadius = 4
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         self.item = nil
+    }
+    
+    func setBubble(position: Int){
+        bubble.layer.cornerRadius = 15
+    
+        messageText.font = UIFont.systemFont(ofSize: 18)
+        messageText.backgroundColor = UIColor.clear
+           
     }
 }
