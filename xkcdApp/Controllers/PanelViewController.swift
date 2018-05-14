@@ -12,12 +12,11 @@ class PanelViewController: UIViewController {
 
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
-    var url: String!
+    var url: String = "www.google.com"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(url!)
-        image.downloadedFrom(url: URL(string: url!)!, loadingIndicator: loadingIndicator)
+        image.downloadedFrom(url: URL(string: url)!, loadingIndicator: loadingIndicator)
     }
    
     @IBAction func close(_ sender: Any) {

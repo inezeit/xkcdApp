@@ -12,13 +12,13 @@ import RxAlamofire
 
 class ApiController {
     
+    var transcriptConverter = TranscriptMessageDetailsConverter()
+    var disposable : Disposable?
+    
     static let sharedInstance: ApiController = {
         let instance = ApiController()
         return instance
     }()
-    
-    var transcriptConverter = TranscriptMessageDetailsConverter()
-    var disposable : Disposable?
     
     func downloadAndSetItems(pageNumber: Int, viewController: ViewController) {
         let sourceStringURL = ApiConfig.URLString("/\(pageNumber)/info.0.json")

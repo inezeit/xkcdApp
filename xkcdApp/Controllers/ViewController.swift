@@ -83,7 +83,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBAction func nextPanel(_ sender: Any) {
         pageNumber += 1
-        print(pageNumber)
         downloadData(pageNumber: pageNumber)
     }
     
@@ -93,8 +92,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        if let panelViewController = segue.destination as? PanelViewController {
-            panelViewController.url = panelUrl!
+        if let panelViewController = segue.destination as? PanelViewController, let panelUrl = panelUrl {
+            panelViewController.url = panelUrl
         }
     }
 }
