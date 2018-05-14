@@ -32,6 +32,7 @@ class ApiController {
                         {
                             let transcript = dictionary["transcript"] as? String
                             MessageStore.sharedInstance.messages  = (self?.transcriptConverter.convert(transcript: transcript!))!
+                            viewController.panelUrl = dictionary["img"] as? String
                             viewController.tableView.reloadData()
                         }
                     }

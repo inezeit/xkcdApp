@@ -10,9 +10,10 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var addButton: UIBarButtonItem!
+    @IBOutlet weak var showPicButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     var store = MessageStore.sharedInstance
+    var panelUrl: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +75,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return store.messages.count
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if let panelViewController = segue.destination as? PanelViewController {
+            panelViewController.url = panelUrl!
+        }
     }
 }
 
