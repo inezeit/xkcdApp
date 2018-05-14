@@ -19,7 +19,7 @@ class MessageTableViewCell: UITableViewCell {
                 messageText.text = ""
             } else {
                 messageText.text = item?.text
-                setBubble(position: 1)
+                setBubble()
             }
         }
     }
@@ -29,11 +29,9 @@ class MessageTableViewCell: UITableViewCell {
         self.item = nil
     }
     
-    func setBubble(position: Int){
+    func setBubble(){
         bubble.layer.cornerRadius = 15
-    
         messageText.font = UIFont.systemFont(ofSize: 18)
         messageText.backgroundColor = UIColor.clear
-           
     }
 }

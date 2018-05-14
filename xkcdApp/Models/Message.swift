@@ -9,12 +9,13 @@
 import Foundation
 
 enum Position {
-    case left, right ,middle
+    case left, right
 }
 
 struct Message {
     var id: Int
-    var author: String
+    var isDescription: Bool
+    var author: String?
     var text : String
-    var position : Position
+    var position : Position?
 }

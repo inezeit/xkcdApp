@@ -8,31 +8,36 @@
 
 import Foundation
 
-class TranscriptMessageConverter {
+class TranscriptMessageDetailsConverter {
     
     func convert(transcript: String) -> [Message]{
        
         var messages: [Message] = []
         let transcriptSeparated = transcript.components(separatedBy: "\n")
         
+        var author = ""
+        var text = ""
+        var isDescription = false
+        var position = Position.left
+        
         for (index, line) in transcriptSeparated.enumerated() {
-            
-            var author = ""
-            var text = ""
-            var position = Position.left
-            
+        
             if(line.starts(with: "[") || line.starts(with: "<")){
-                author = "text"
+                isDescription = true
                 text = line
-                position = .middle
+            }else if(line.starts(with: "{{")){
+                continue
             }else{
+                isDescription = false
                 var lineSeaprated = line.components(separatedBy: ":")
+                if (author != lineSeaprated[0]){
+                    position = position == .left ? .right : .left
+                }
                 author = lineSeaprated[0]
                 text = lineSeaprated[1]
             }
             
-            let message = Message(id: index, author: author, text: text, position: position)
-            print(index)
+            let message = Message(id: index, isDescription: isDescription, author: author, text: text, position: position)
             messages.append(message)
         }
         

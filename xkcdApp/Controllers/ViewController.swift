@@ -19,7 +19,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         tableView.dataSource = self
         
-        ApiController.sharedInstance.downloadAndSetItems(pageNumber: 1, viewController: self)
+        ApiController.sharedInstance.downloadAndSetItems(pageNumber: 208, viewController: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -43,12 +43,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    var previousAuthor : String?
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MessageTableViewCell.self)) as? MessageTableViewCell else {
             fatalError()
         }
+        
         let item = store.messages[indexPath.row]
         cell.item = item
         
@@ -61,16 +60,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let screenWidth = screenSize.width
         var startPosition : CGFloat = 0.0
         
-        if(cell.item?.author == "text"){
+        if(cell.item?.isDescription)!{
             startPosition = screenWidth/2 - estimatedFrame.width/2
-        }else if(previousAuthor != nil && cell.item?.author != previousAuthor){
+        }else if(cell.item?.position == .left){
             startPosition = screenWidth - estimatedFrame.width - 20
         }
         
-        previousAuthor = cell.item?.author
-        
         cell.bubble.frame = CGRect(x: startPosition + 5, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
         cell.messageText.frame = CGRect(x: startPosition, y: 0, width: estimatedFrame.width + 16 + 8, height: estimatedFrame.height + 20)
+        
         return cell
     }
     

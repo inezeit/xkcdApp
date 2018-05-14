@@ -17,7 +17,7 @@ class ApiController {
         return instance
     }()
     
-    var transcriptConverter = TranscriptMessageConverter()
+    var transcriptConverter = TranscriptMessageDetailsConverter()
     var disposable : Disposable?
     
     func downloadAndSetItems(pageNumber: Int, viewController: ViewController) {
