@@ -21,8 +21,7 @@ class ApiController {
     var disposable : Disposable?
     
     func downloadAndSetItems(pageNumber: Int, viewController: ViewController) {
-        let pageNumberTEMP = 208
-        let sourceStringURL = ApiConfig.URLString("/\(pageNumberTEMP)/info.0.json")
+        let sourceStringURL = ApiConfig.URLString("/\(pageNumber)/info.0.json")
         disposable = RxAlamofire.requestJSON(.get, sourceStringURL)
             .subscribe(
                 onNext: { [weak self] (r, json) in

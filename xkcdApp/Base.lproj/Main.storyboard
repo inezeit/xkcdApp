@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HXe-SK-9Ig">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageTableViewCell" id="b7Q-BF-29D" customClass="MessageTableViewCell" customModule="xkcdApp" customModuleProvider="target">
@@ -61,17 +62,30 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pUD-qm-P85"/>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="JBD-cV-Wun">
-                        <barButtonItem key="rightBarButtonItem" title="Show Panel" id="494-IK-Fpa">
+                        <barButtonItem key="leftBarButtonItem" title="show panel" id="494-IK-Fpa">
                             <connections>
                                 <segue destination="BsW-K0-YFH" kind="popoverPresentation" popoverAnchorBarButtonItem="494-IK-Fpa" id="PNV-CX-WPl">
                                     <popoverArrowDirection key="popoverArrowDirection" down="YES"/>
                                 </segue>
                             </connections>
                         </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="next" id="5HC-Jx-0gp">
+                                <connections>
+                                    <action selector="nextPanel:" destination="W1u-ow-tsJ" id="lcn-ld-Wuo"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="previous" id="Zi8-uS-ixV">
+                                <connections>
+                                    <action selector="previousPanel:" destination="W1u-ow-tsJ" id="CFK-Qw-qBd"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="showPicButton" destination="494-IK-Fpa" id="l5p-GS-q4h"/>
                         <outlet property="tableView" destination="HXe-SK-9Ig" id="nlG-ZH-jhW"/>
                     </connections>
                 </viewController>
@@ -94,9 +108,9 @@
                                 <rect key="frame" x="177" y="323.5" width="20" height="20"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EED-or-sYN">
-                                <rect key="frame" x="309" y="25" width="46" height="34"/>
+                                <rect key="frame" x="312" y="25" width="43" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Close">
+                                <state key="normal" title="close">
                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>

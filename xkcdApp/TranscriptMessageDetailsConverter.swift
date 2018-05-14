@@ -29,12 +29,15 @@ class TranscriptMessageDetailsConverter {
                 continue
             }else{
                 isDescription = false
-                var lineSeaprated = line.components(separatedBy: ":")
-                if (author != lineSeaprated[0]){
+                let lineSeaprated = line.components(separatedBy: ":")
+                if(lineSeaprated.last! == ""){
+                    continue
+                }
+                if (author != lineSeaprated.first!){
                     position = position == .left ? .right : .left
                 }
-                author = lineSeaprated[0]
-                text = lineSeaprated[1]
+                author = lineSeaprated.first!
+                text = lineSeaprated.last!
             }
             
             let message = Message(id: index, isDescription: isDescription, author: author, text: text, position: position)

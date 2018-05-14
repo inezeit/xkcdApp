@@ -10,17 +10,16 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var showPicButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     var store = MessageStore.sharedInstance
     var panelUrl: String?
+    var pageNumber = 208
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        
-        ApiController.sharedInstance.downloadAndSetItems(pageNumber: 208, viewController: self)
+        downloadData(pageNumber: pageNumber)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -75,6 +74,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return store.messages.count
+    }
+    
+    @IBAction func previousPanel(_ sender: Any) {
+        pageNumber -= 1
+        downloadData(pageNumber: pageNumber)
+    }
+    
+    @IBAction func nextPanel(_ sender: Any) {
+        pageNumber += 1
+        print(pageNumber)
+        downloadData(pageNumber: pageNumber)
+    }
+    
+    func downloadData(pageNumber: Int){
+        ApiController.sharedInstance.downloadAndSetItems(pageNumber: pageNumber, viewController: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
